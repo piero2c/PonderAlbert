@@ -1,9 +1,9 @@
 # PonderALBERT
 
 Hi! This is an experimental project that tries to combine variable-depth Pretrained Transformers with a halt mechanism.
-For this project, I choose to use ALBERT ([Lan et. al](https://arxiv.org/abs/1909.11942)), which has variable depth (due to weight-sharing), and the Halting mechanism proposed by the recent paper "PonderNet: Learning to Ponder" ([Banino et. al](https://arxiv.org/abs/2107.05407)).
+For this project, I choose to use ALBERT ([Lan et. al](https://arxiv.org/abs/1909.11942)), which has variable depth (due to weight-sharing), and the Halting mechanism proposed in the recent "PonderNet: Learning to Ponder" ([Banino et. al](https://arxiv.org/abs/2107.05407)).
 
-For a detailed description of the halting mechanism, I suggest reading the [PonderNet paper ](https://arxiv.org/abs/2107.05407) or watching the amazing [video explanation](https://www.youtube.com/watch?v=nQDZmf2Yb9k) created by Yannic Kilcher.
+For a detailed description of the halting mechanism, I suggest reading the [PonderNet paper ](https://arxiv.org/abs/2107.05407) or watching the amazing [video explanation](https://www.youtube.com/watch?v=nQDZmf2Yb9k) made by Yannic Kilcher.
 
 ## Usage
 
@@ -32,8 +32,8 @@ model = PonderAlbertClassifier.from_pretrained('albert-base-v2', num_hidden_laye
 from ponder_albert.losses import PonderClassificationLoss
 
 # Sample dataset
-texts = ['The cat sat on the mat']
-labels = [0]
+texts = ['The cat sat on the mat', 'The mat was sat on by the cat']
+labels = [0, 1]
 
 # Initializes the PonderNet criterion for text-classification
 optimizer = torch.optim.Adam(model.parameters())
@@ -49,7 +49,7 @@ optimizer.step()
 
 **Inference with halting mechanism**
 
-During inference, the halting mechanism can stop the model halfway, but since the halting
+During inference, the halting mechanism can stop the model halfway. But note that since the halting
 mechanism is stochastic, the results can still vary.
 
 ```python
@@ -65,7 +65,7 @@ model(['My cool new text'])
 #  'passes': 5
 #  }
 
-# And again!
+# ...now twice
 model(['My cool new text'])
 
 # {'logits': ...,
